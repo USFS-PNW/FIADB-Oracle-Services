@@ -265,6 +265,12 @@ namespace FIADB.Oracle
                                 else
                                     BiosumTreeInputRecordCollection.Item(x).DRYBIOM = -1;
 
+
+                                if (TreeRecord.VOLTSGRS_CALC != null)
+                                    BiosumTreeInputRecordCollection.Item(x).VOLTSGRS = (double)TreeRecord.VOLTSGRS_CALC;
+                                else
+                                    BiosumTreeInputRecordCollection.Item(x).VOLTSGRS = -1;
+
                             }
 
 
@@ -436,6 +442,12 @@ namespace FIADB.Oracle
                 {
                     get { return _dblDRYBIOM; }
                     set { _dblDRYBIOM = value; }
+                }
+                private double _dblVOLTSGRS = 0;
+                public double VOLTSGRS
+                {
+                    get { return _dblVOLTSGRS; }
+                    set { _dblVOLTSGRS = value; }
                 }
                 
 
