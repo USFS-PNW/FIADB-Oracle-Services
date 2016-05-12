@@ -105,7 +105,7 @@ namespace FIADB.Oracle
                 m_strError = err.Message;
             }
         }
-        private void SQLQuery(string p_strSql)
+        public void SQLQuery(string p_strSql)
         {
             try
             {
