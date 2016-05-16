@@ -65,7 +65,7 @@ namespace FIADB.Oracle
                 m_intError = 0; m_strError = "";
                 //for (int x = 0; x <= ConfigurationManager.ConnectionStrings.Count - 1; x++)
                 //{
-                    // MessageBox.Show(ConfigurationManager.ConnectionStrings[x].ConnectionString);
+                //     MessageBox.Show(ConfigurationManager.ConnectionStrings[x].ConnectionString);
                 //}
                 _oEntityConnection = new EntityConnection(ConfigurationManager.ConnectionStrings["FCS_Entities_ConnectionString"].ConnectionString);
                 
@@ -95,6 +95,7 @@ namespace FIADB.Oracle
             {
                 //MessageBox.Show("instantiate fcs entity");
                 _oFCSEntities = new FCS_Entities();
+                //_oFCSEntities.EntityConnection = _oEntityConnection;
                 //if (_oFCSEntities == null) MessageBox.Show("_oFVSEntities never initialized");
                
             }
@@ -231,6 +232,7 @@ namespace FIADB.Oracle
                         ReferenceServices.FCSEntities = null;
 
                         ReferenceServices.InstantiateNewFCSEntity();
+                        
                         ReferenceServices.FCSEntities.COMP_BIOSUM_VOLS_BY_CURSOR();
                         //populate the collection with volume data
                         for (x = 0; x <= BiosumTreeInputRecordCollection.Count - 1; x++)
