@@ -201,6 +201,8 @@ namespace FIADB.Oracle
                     _aBiosumTreeRecord.STATUSCD = (short)p_oInputRecord.StatusCd;
                     _aBiosumTreeRecord.TREECLCD = p_oInputRecord.TreeClCd;
                     _aBiosumTreeRecord.CR = p_oInputRecord.CR;
+                    _aBiosumTreeRecord.DECAYCD = p_oInputRecord.DecayCd;
+                    _aBiosumTreeRecord.TOTAGE = p_oInputRecord.TotalAge;
                     _aBiosumTreeRecord.VOL_LOC_GRP = p_oInputRecord.Vol_Loc_Grp;
                     ReferenceServices.FCSEntities.BIOSUM_VOLUMEs.Add(_aBiosumTreeRecord);
                  
@@ -414,6 +416,18 @@ namespace FIADB.Oracle
                 {
                     get { return _intStatusCd; }
                     set { _intStatusCd = value; }
+                }
+                private int _intDecayCd = -1;
+                public int DecayCd
+                {
+                    get { return _intDecayCd; }
+                    set { _intDecayCd = value; }
+                }
+                private double _dblTotalAge = -1;
+                public double TotalAge
+                {
+                    get { return _dblTotalAge; }
+                    set { _dblTotalAge = value; }
                 }
                 private double _dblVOLCFGRS = 0;
                 public double VOLCFGRS
