@@ -39,7 +39,7 @@
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Devart\dotConnect\Oracle\Entity\EF4\Devart.Data.Oracle.Entity.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
-      <HintPath>..\..\Fia-Biosum-Manager\src\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
