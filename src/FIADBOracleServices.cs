@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.EntityClient;
-using Devart.Data.Oracle;
 using FcsClassLibrary;
 using System.Configuration;
 using System.Windows.Forms;
+using ODP;
+using Oracle.DataAccess;
+using Oracle.DataAccess.Client;
 
 
-namespace FIADB.Oracle
+
+namespace FIADBOracle
 {
     public class Services
     {
@@ -17,37 +20,29 @@ namespace FIADB.Oracle
         public string m_strError = "";
         public Tree m_oTree = null;
         
-        private EntityConnection _oEntityConnection = null;
-        private OracleConnection _oOracleConnection = null;
-        private FCS_Entities _oFCSEntities = null;
         public const int ERROR_MONITOR = -1;
         public const int ERROR_CONNECTION = -2;
         public const int ERROR_ENTIIES = -3;
         public const int ERROR_ADDRECORD = -4;
         public const int ERROR_GETVOLUMES = -5;
         public const int ERROR_SQLQUERY = -6;
-        public EntityConnection EntityConnection
+
+
+        private FCSEntities _FCSEntities;
+        public FCSEntities FCSEntities
         {
-            get { return _oEntityConnection; }
-        }
-        public OracleConnection OracleConnection
-        {
-            get { return _oOracleConnection; }
-        }
-        public FCS_Entities FCSEntities
-        {
-            get { return _oFCSEntities; }
-            set { _oFCSEntities = value; }
+            get { return _FCSEntities; }
+            set { _FCSEntities = value; }
         }
         
+     
         
         public Services()
         {
             try
             {
                 m_intError = 0; m_strError = "";
-                // Turn on OracleMonitor to view executed DDL & DML statements on the server (ensure dbMonitor is running FIRST).
-                //OracleMonitor monitor = new OracleMonitor() { IsActive = true };
+                
             }
             catch (Exception e)
             {
@@ -61,25 +56,12 @@ namespace FIADB.Oracle
         {
             try
             {
-               // MessageBox.Show("start");
+              
                 m_intError = 0; m_strError = "";
-                //for (int x = 0; x <= ConfigurationManager.ConnectionStrings.Count - 1; x++)
-                //{
-                //     MessageBox.Show(ConfigurationManager.ConnectionStrings[x].ConnectionString);
-                //}
-                _oEntityConnection = new EntityConnection(ConfigurationManager.ConnectionStrings["FCS_Entities_ConnectionString"].ConnectionString);
-                
-                //string strConn = "metadata=res://*/FcsDataModel.csdl|res://*/FcsDataModel.ssdl|res://*/FcsDataModel.msl;provider=Devart.Data.Oracle;provider connection string=';User Id=FCS;Password=fcs;Server=localhost;Direct=True;Sid=XE'";
-                //_oEntityConnection = new EntityConnection(strConn);
-                                
-                //MessageBox.Show("have entity connection");
-                _oOracleConnection = new OracleConnection(_oEntityConnection.StoreConnection.ConnectionString);
-               // MessageBox.Show("have oracle connection");
-                InstantiateNewFCSEntity();
-                SQLQuery("DELETE FROM biosum_volume");
+                _FCSEntities = new FcsClassLibrary.FCSEntities();
+                _FCSEntities.DeleteAllRecords_BIOSUM_VOLUME();
                 m_oTree = new Tree();
                 m_oTree.ReferenceServices = this;
-                //if (m_oTree == null) MessageBox.Show("m_oTree instantiation failed");
             }
             catch (Exception err)
             {
@@ -89,29 +71,12 @@ namespace FIADB.Oracle
             }
 
         }
-        public void InstantiateNewFCSEntity()
-        {
-            try
-            {
-                //MessageBox.Show("instantiate fcs entity");
-                _oFCSEntities = new FCS_Entities();
-                //_oFCSEntities.EntityConnection = _oEntityConnection;
-                //if (_oFCSEntities == null) MessageBox.Show("_oFVSEntities never initialized");
-               
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show("!!error!! FIADBOracleServices.InstatiateNewFCSEntity " + err.Message);
-                m_intError = ERROR_ENTIIES;
-                m_strError = err.Message;
-            }
-        }
+        
         public void SQLQuery(string p_strSql)
         {
             try
             {
-                //MessageBox.Show("execute _oFCSEntities.Database.ExecuteSqlCommand(" + p_strSql + ")");
-                _oFCSEntities.Database.ExecuteSqlCommand(p_strSql);
+                _FCSEntities.SQLNonQuery(p_strSql);
             }
             catch (Exception err)
             {
@@ -126,7 +91,8 @@ namespace FIADB.Oracle
 
             private BIOSUM_VOLUME _aBiosumTreeRecord=null;
             //private BIOSUM_VOLUME _aBiosumTreeRecord = new BIOSUM_VOLUME();
-            private FIADB.Oracle.Services _oServices=null;
+            //private FIADBOracle.Services _oServices=null;
+            private FIADBOracle.Services _oServices = null;
             private BiosumTreeInputRecord _BiosumTreeInputRecord = null;
             private BiosumTreeInputRecord_Collection _BiosumTreeInputRecord_Collection = null;
 
@@ -145,7 +111,7 @@ namespace FIADB.Oracle
                 get { return _BiosumTreeInputRecord_Collection; }
                 set { _BiosumTreeInputRecord_Collection = value; }
             }
-            public FIADB.Oracle.Services ReferenceServices
+            public FIADBOracle.Services ReferenceServices
             {
                 get { return _oServices; }
                 set { _oServices = value; }
@@ -183,6 +149,9 @@ namespace FIADB.Oracle
             {
                 try
                 {
+                    
+                       
+
                     _aBiosumTreeRecord = new BIOSUM_VOLUME();
                     _aBiosumTreeRecord.TRE_CN = p_oInputRecord.TRE_CN;
                     _aBiosumTreeRecord.PLT_CN = p_oInputRecord.PLT_CN;
@@ -204,7 +173,9 @@ namespace FIADB.Oracle
                     _aBiosumTreeRecord.DECAYCD = p_oInputRecord.DecayCd;
                     _aBiosumTreeRecord.TOTAGE = p_oInputRecord.TotalAge;
                     _aBiosumTreeRecord.VOL_LOC_GRP = p_oInputRecord.Vol_Loc_Grp;
-                    ReferenceServices.FCSEntities.BIOSUM_VOLUMEs.Add(_aBiosumTreeRecord);
+
+                    if (ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST == null) ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST = new List<BIOSUM_VOLUME>();
+                    ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST.Add(_aBiosumTreeRecord);
                  
 
                                       
@@ -213,7 +184,7 @@ namespace FIADB.Oracle
                 catch (Exception err)
                 {
                     MessageBox.Show("!!ERROR!! FIADBOracle.Services.Tree.AddBiosumRecord " + err.Message);
-                    ReferenceServices.m_intError = FIADB.Oracle.Services.ERROR_ADDRECORD;
+                    ReferenceServices.m_intError = FIADBOracle.Services.ERROR_ADDRECORD;
                     ReferenceServices.m_strError = "Oracle Services Add Biosum Record Error\r\n--------------------------------------\r\n" + err.Message;
                 }
 
@@ -229,19 +200,23 @@ namespace FIADB.Oracle
                     if (_oGetVolumesMode == GetVolumesModeValues.InsertRowTrigger)
                     {
 
-                        ReferenceServices.FCSEntities.SaveChanges();
-                        ReferenceServices.FCSEntities.Dispose();
-                        ReferenceServices.FCSEntities = null;
+                        ReferenceServices.FCSEntities.InsertInto_BIOSUM_VOLUMEStable
+                            (ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST);
 
-                        ReferenceServices.InstantiateNewFCSEntity();
-                        
                         ReferenceServices.FCSEntities.COMP_BIOSUM_VOLS_BY_CURSOR();
+
+                        if (ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST == null)
+                            ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST = new List<BIOSUM_VOLUME>();
+
+                        ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST =
+                            ReferenceServices.FCSEntities.ExecuteSelectSQL_CreateBIOSUM_VOLUMEList("SELECT * FROM BIOSUM_VOLUME");
+
                         //populate the collection with volume data
                         for (x = 0; x <= BiosumTreeInputRecordCollection.Count - 1; x++)
                         {
 
 
-                            var TreeRecord = ReferenceServices.FCSEntities.BIOSUM_VOLUMEs.Find(BiosumTreeInputRecordCollection.Item(x).TRE_CN);
+                            var TreeRecord = ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST.Where(a=>a.TRE_CN == BiosumTreeInputRecordCollection.Item(x).TRE_CN).Select(a=>a).FirstOrDefault();
                             if (TreeRecord != null)
                             {
                                 if (TreeRecord.VOLCFGRS_CALC != null)
@@ -284,14 +259,11 @@ namespace FIADB.Oracle
                     {
                         ReferenceServices.FCSEntities.COMP_BIOSUM_VOLS_BY_UPDATE();
                     }
-
-                    ReferenceServices.FCSEntities.Dispose();
-                    ReferenceServices.FCSEntities = null;
                      
                 }
                 catch (Exception err)
                 {
-                    ReferenceServices.m_intError = FIADB.Oracle.Services.ERROR_GETVOLUMES;
+                    ReferenceServices.m_intError = FIADBOracle.Services.ERROR_GETVOLUMES;
                     ReferenceServices.m_strError = "Oracle Compilation Error\r\n-----------------------------\r\n" + err.Message;
                 }
                
