@@ -6,9 +6,11 @@ using System.Data.EntityClient;
 using FcsClassLibrary;
 using System.Configuration;
 using System.Windows.Forms;
-using ODP;
-using Oracle.DataAccess;
-using Oracle.DataAccess.Client;
+using Oracle.ADO;
+using System.Data.OracleClient;
+//using ODP;
+//using Oracle.DataAccess;
+//using Oracle.DataAccess.Client;
 
 
 
