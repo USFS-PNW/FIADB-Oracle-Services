@@ -29,6 +29,7 @@ namespace FIADBOracle
         public const int ERROR_GETVOLUMES = -5;
         public const int ERROR_SQLQUERY = -6;
 
+        public static bool FS_NETWORK_AVAILABLE { get; set; }
 
         private FCSEntities _FCSEntities;
         public FCSEntities FCSEntities
@@ -205,13 +206,14 @@ namespace FIADBOracle
                         ReferenceServices.FCSEntities.InsertInto_BIOSUM_VOLUMEStable
                             (ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST);
 
-                        ReferenceServices.FCSEntities.COMP_BIOSUM_VOLS_BY_CURSOR();
+                        if (FIADBOracle.Services.FS_NETWORK_AVAILABLE == false)
+                            ReferenceServices.FCSEntities.COMP_BIOSUM_VOLS_BY_CURSOR();
 
                         if (ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST == null)
                             ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST = new List<BIOSUM_VOLUME>();
 
                         ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST =
-                            ReferenceServices.FCSEntities.ExecuteSelectSQL_CreateBIOSUM_VOLUMEList("SELECT * FROM BIOSUM_VOLUME");
+                            ReferenceServices.FCSEntities.ExecuteSelectSQL_CreateBIOSUM_VOLUMEList("SELECT * FROM " + FCSOracle.FCSSchema + ".BIOSUM_VOLUME");
 
                         //populate the collection with volume data
                         for (x = 0; x <= BiosumTreeInputRecordCollection.Count - 1; x++)
