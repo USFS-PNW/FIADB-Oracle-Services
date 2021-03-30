@@ -176,6 +176,26 @@ namespace FIADBOracle
                     _aBiosumTreeRecord.DECAYCD = p_oInputRecord.DecayCd;
                     _aBiosumTreeRecord.TOTAGE = p_oInputRecord.TotalAge;
                     _aBiosumTreeRecord.VOL_LOC_GRP = p_oInputRecord.Vol_Loc_Grp;
+                    //START: ADDED BIOSUM_VOLUME COLUMNS
+                    _aBiosumTreeRecord.SITREE = p_oInputRecord.SiTree;
+                    _aBiosumTreeRecord.WDLDSTEM = p_oInputRecord.WoodlandStem;
+                    _aBiosumTreeRecord.UPPER_DIA = p_oInputRecord.UpperDia;
+                    _aBiosumTreeRecord.UPPER_DIA_HT = p_oInputRecord.UpperDiaHt;
+                    _aBiosumTreeRecord.CENTROID_DIA = p_oInputRecord.CentroidDia;
+                    _aBiosumTreeRecord.CENTROID_DIA_HT_ACTUAL = p_oInputRecord.CentroidDiaHtActual;
+                    _aBiosumTreeRecord.SAWHT = p_oInputRecord.SawHt;
+                    _aBiosumTreeRecord.HTDMP = p_oInputRecord.HtDmp;
+                    _aBiosumTreeRecord.BOLEHT = p_oInputRecord.BoleHt;
+                    _aBiosumTreeRecord.CULLCF = p_oInputRecord.CullCf;
+                    _aBiosumTreeRecord.CULL_FLD = p_oInputRecord.CullFld;
+                    _aBiosumTreeRecord.CULLDEAD = p_oInputRecord.CullDead;
+                    _aBiosumTreeRecord.CULLFORM = p_oInputRecord.CullForm;
+                    _aBiosumTreeRecord.CULLMSTOP = p_oInputRecord.CullMStop;
+                    _aBiosumTreeRecord.CFSND = p_oInputRecord.CfSnd;
+                    _aBiosumTreeRecord.BFSND = p_oInputRecord.BfSnd;
+                    _aBiosumTreeRecord.PRECIPITATION = p_oInputRecord.Precipitation;
+                    _aBiosumTreeRecord.BALIVE = p_oInputRecord.BaLive;
+                    //END: ADDED BIOSUM_VOLUME COLUMNS
 
                     if (ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST == null) ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST = new List<BIOSUM_VOLUME>();
                     ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST.Add(_aBiosumTreeRecord);
@@ -405,6 +425,117 @@ namespace FIADBOracle
                     get { return _dblTotalAge; }
                     set { _dblTotalAge = value; }
                 }
+                //START: ADDED BIOSUM_VOLUME COLUMNS
+                private int? _intSiTree;
+                public int? SiTree
+                {
+                    get { return _intSiTree; }
+                    set { _intSiTree = value; }
+                }
+                private int? _intWoodlandStem;
+                public int? WoodlandStem
+                {
+                    get { return _intWoodlandStem; }
+                    set { _intWoodlandStem = value; }
+                }
+                private double? _dblUpperDia;
+                public double? UpperDia
+                {
+                    get { return _dblUpperDia; }
+                    set { _dblUpperDia = value; }
+                }
+                private double? _dblUpperDiaHt;
+                public double? UpperDiaHt
+                {
+                    get { return _dblUpperDiaHt; }
+                    set { _dblUpperDiaHt = value; }
+                }
+                private double? _dblCentroidDia;
+                public double? CentroidDia
+                {
+                    get { return _dblCentroidDia; }
+                    set { _dblCentroidDia = value; }
+                }
+                private double? _dblCentroidDiaHtActual;
+                public double? CentroidDiaHtActual
+                {
+                    get { return _dblCentroidDiaHtActual; }
+                    set { _dblCentroidDiaHtActual = value; }
+                }
+                private int? _intSawHt;
+                public int? SawHt
+                {
+                    get { return _intSawHt; }
+                    set { _intSawHt = value; }
+                }
+                private double? _dblHtDmp;
+                public double? HtDmp
+                {
+                    get { return _dblHtDmp; }
+                    set { _dblHtDmp = value; }
+                }
+                private int? _intBoleHt;
+                public int? BoleHt
+                {
+                    get { return _intBoleHt; }
+                    set { _intBoleHt = value; }
+                }
+                private int? _intCullCf;
+                public int? CullCf
+                {
+                    get { return _intCullCf; }
+                    set { _intCullCf = value; }
+                }
+                private int? _intCullFld;
+                public int? CullFld
+                {
+                    get { return _intCullFld; }
+                    set { _intCullFld = value; }
+                }
+                private int? _intCullDead;
+                public int? CullDead
+                {
+                    get { return _intCullDead; }
+                    set { _intCullDead = value; }
+                }
+                private int? _intCullForm;
+                public int? CullForm
+                {
+                    get { return _intCullForm; }
+                    set { _intCullForm = value; }
+                }
+                private int? _intCullMStop;
+                public int? CullMStop
+                {
+                    get { return _intCullMStop; }
+                    set { _intCullMStop = value; }
+                }
+                private int? _intCfSnd;
+                public int? CfSnd
+                {
+                    get { return _intCfSnd; }
+                    set { _intCfSnd = value; }
+                }
+                private int? _intBfSnd;
+                public int? BfSnd
+                {
+                    get { return _intBfSnd; }
+                    set { _intBfSnd = value; }
+                }
+                private double? _dblPrecipitation;
+                public double? Precipitation
+                {
+                    get { return _dblPrecipitation; }
+                    set { _dblPrecipitation = value; }
+                }
+                private double? _dblBaLive;
+                public double? BaLive
+                {
+                    get { return _dblBaLive; }
+                    set { _dblBaLive = value; }
+                }
+                //END: ADDED BIOSUM_VOLUME COLUMNS
+
                 private double _dblVOLCFGRS = 0;
                 public double VOLCFGRS
                 {
