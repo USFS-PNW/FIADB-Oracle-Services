@@ -204,6 +204,7 @@ namespace FIADBOracle
                     _aBiosumTreeRecord.DRYBIO_WDLD_SPP_CALC = p_oInputRecord.DrybioWdldSppCalc;
                     _aBiosumTreeRecord.CULLBF = p_oInputRecord.CullBf;
                     _aBiosumTreeRecord.SUBP = p_oInputRecord.Subp;
+                    _aBiosumTreeRecord.FORMCL = p_oInputRecord.FormCl;
                     //END: ADDED BIOSUM_VOLUME COLUMNS
 
                     if (ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST == null) ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST = new List<BIOSUM_VOLUME>();
@@ -553,6 +554,7 @@ namespace FIADBOracle
                 public double? DrybioWdldSppCalc { get; set; }
                 public int? CullBf { get; set; }
                 public byte? Subp { get; set; }
+                public byte? FormCl { get; set; }
 
                 //END: ADDED BIOSUM_VOLUME COLUMNS
 
