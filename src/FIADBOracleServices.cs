@@ -202,6 +202,8 @@ namespace FIADBOracle
                     _aBiosumTreeRecord.DRYBIO_TOP_CALC = p_oInputRecord.DrybioTopCalc;
                     _aBiosumTreeRecord.DRYBIO_SAPLING_CALC = p_oInputRecord.DrybioSaplingCalc;
                     _aBiosumTreeRecord.DRYBIO_WDLD_SPP_CALC = p_oInputRecord.DrybioWdldSppCalc;
+                    _aBiosumTreeRecord.CULLBF = p_oInputRecord.CullBf;
+                    _aBiosumTreeRecord.SUBP = p_oInputRecord.Subp;
                     //END: ADDED BIOSUM_VOLUME COLUMNS
 
                     if (ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST == null) ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST = new List<BIOSUM_VOLUME>();
@@ -542,20 +544,15 @@ namespace FIADBOracle
                     set { _dblBaLive = value; }
                 }
 
-                private int? _DiaHtCd { get; set; }
                 public int? DiaHtCd { get; set; }
-                private int? _StandingDeadCd { get; set; }
                 public int? StandingDeadCd { get; set; }
-                private double? _VolcfsndCalc { get; set; }
                 public double? VolcfsndCalc { get; set; }
-                private double? _DrybioBoleCalc { get; set; }
                 public double? DrybioBoleCalc { get; set; }
-                private double? _DrybioTopCalc { get; set; }
                 public double? DrybioTopCalc { get; set; }
-                private double? _DrybioSaplingCalc { get; set; }
                 public double? DrybioSaplingCalc { get; set; }
-                private double? _DrybioWdldSppCalc { get; set; }
                 public double? DrybioWdldSppCalc { get; set; }
+                public int? CullBf { get; set; }
+                public byte? Subp { get; set; }
 
                 //END: ADDED BIOSUM_VOLUME COLUMNS
 
