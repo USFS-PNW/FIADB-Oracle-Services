@@ -195,6 +195,16 @@ namespace FIADBOracle
                     _aBiosumTreeRecord.BFSND = p_oInputRecord.BfSnd;
                     _aBiosumTreeRecord.PRECIPITATION = p_oInputRecord.Precipitation;
                     _aBiosumTreeRecord.BALIVE = p_oInputRecord.BaLive;
+                    _aBiosumTreeRecord.DIAHTCD = p_oInputRecord.DiaHtCd;
+                    _aBiosumTreeRecord.STANDING_DEAD_CD = p_oInputRecord.StandingDeadCd;
+                    _aBiosumTreeRecord.VOLCFSND_CALC = p_oInputRecord.VolcfsndCalc;
+                    _aBiosumTreeRecord.DRYBIO_BOLE_CALC = p_oInputRecord.DrybioBoleCalc;
+                    _aBiosumTreeRecord.DRYBIO_TOP_CALC = p_oInputRecord.DrybioTopCalc;
+                    _aBiosumTreeRecord.DRYBIO_SAPLING_CALC = p_oInputRecord.DrybioSaplingCalc;
+                    _aBiosumTreeRecord.DRYBIO_WDLD_SPP_CALC = p_oInputRecord.DrybioWdldSppCalc;
+                    _aBiosumTreeRecord.CULLBF = p_oInputRecord.CullBf;
+                    _aBiosumTreeRecord.SUBP = p_oInputRecord.Subp;
+                    _aBiosumTreeRecord.FORMCL = p_oInputRecord.FormCl;
                     //END: ADDED BIOSUM_VOLUME COLUMNS
 
                     if (ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST == null) ReferenceServices.FCSEntities.BIOSUM_VOLUME_LIST = new List<BIOSUM_VOLUME>();
@@ -419,8 +429,8 @@ namespace FIADBOracle
                     get { return _intDecayCd; }
                     set { _intDecayCd = value; }
                 }
-                private double _dblTotalAge = -1;
-                public double TotalAge
+                private double? _dblTotalAge = -1;
+                public double? TotalAge
                 {
                     get { return _dblTotalAge; }
                     set { _dblTotalAge = value; }
@@ -534,6 +544,18 @@ namespace FIADBOracle
                     get { return _dblBaLive; }
                     set { _dblBaLive = value; }
                 }
+
+                public int? DiaHtCd { get; set; }
+                public int? StandingDeadCd { get; set; }
+                public double? VolcfsndCalc { get; set; }
+                public double? DrybioBoleCalc { get; set; }
+                public double? DrybioTopCalc { get; set; }
+                public double? DrybioSaplingCalc { get; set; }
+                public double? DrybioWdldSppCalc { get; set; }
+                public int? CullBf { get; set; }
+                public byte? Subp { get; set; }
+                public byte? FormCl { get; set; }
+
                 //END: ADDED BIOSUM_VOLUME COLUMNS
 
                 private double _dblVOLCFGRS = 0;
@@ -572,8 +594,6 @@ namespace FIADBOracle
                     get { return _dblVOLTSGRS; }
                     set { _dblVOLTSGRS = value; }
                 }
-                
-
             }
             public void RemoveAllBiomassInputRecordsFromCollection()
             {
