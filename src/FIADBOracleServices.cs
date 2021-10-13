@@ -429,8 +429,8 @@ namespace FIADBOracle
                     get { return _intDecayCd; }
                     set { _intDecayCd = value; }
                 }
-                private double _dblTotalAge = -1;
-                public double TotalAge
+                private double? _dblTotalAge = -1;
+                public double? TotalAge
                 {
                     get { return _dblTotalAge; }
                     set { _dblTotalAge = value; }
