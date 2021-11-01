@@ -62,7 +62,7 @@ namespace FIADBOracle
               
                 m_intError = 0; m_strError = "";
                 _FCSEntities = new FcsClassLibrary.FCSEntities();
-                _FCSEntities.DeleteAllRecords_BIOSUM_VOLUME();
+                if (!FS_NETWORK_AVAILABLE) _FCSEntities.DeleteAllRecords_BIOSUM_VOLUME();
                 m_oTree = new Tree();
                 m_oTree.ReferenceServices = this;
             }
